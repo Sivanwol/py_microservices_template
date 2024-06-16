@@ -1,0 +1,36 @@
+[default]
+SECRET_KEY = "you-will-never-guess"
+DB_USERNAME = "app_user"
+DB_PASSWORD = "app_password"
+DATABASE_NAME = "app"
+DATABASE_SQLITE = true
+CORS_ORIGINS = "*"
+DESCOPE_PROJECT_ID=""
+
+[development]
+DB_HOST = "localhost"
+SQLALCHEMY_DATABASE_URI = "@jinja postgresql://{{ this.DB_USERNAME }}:{{ this.DB_PASSWORD }}@{{ this.DB_HOST }}:5432/{{ this.DATABASE_NAME }}"
+
+[docker]
+DB_HOST = "db" 
+SQLALCHEMY_DATABASE_URI = "@jinja postgresql://{{ this.DB_USERNAME }}:{{ this.DB_PASSWORD }}@{{ this.DB_HOST }}:5432/{{ this.DATABASE_NAME }}"
+
+[devcontainer]
+DB_HOST = "db" 
+SQLALCHEMY_DATABASE_URI = "@jinja postgresql://{{ this.DB_USERNAME }}:{{ this.DB_PASSWORD }}@{{ this.DB_HOST }}:5432/{{ this.DATABASE_NAME }}"
+
+[testing_devcontainer]
+TESTING = true
+DB_HOST = "db" 
+DATABASE_TEST_NAME = "test_app"
+SQLALCHEMY_DATABASE_URI = "@jinja postgresql://{{ this.DB_USERNAME }}:{{ this.DB_PASSWORD }}@{{ this.DB_HOST }}:5432/{{ this.DATABASE_TEST_NAME }}"
+
+[testing_gha]
+TESTING = true
+DB_HOST = "localhost" 
+DATABASE_TEST_NAME = "test_app"
+SQLALCHEMY_DATABASE_URI = "@jinja postgresql://{{ this.DB_USERNAME }}:{{ this.DB_PASSWORD }}@{{ this.DB_HOST }}:5432/{{ this.DATABASE_TEST_NAME }}"
+
+[staging]
+
+[production]

@@ -1,0 +1,20 @@
+
+# Ignore dynaconf secret files
+.secrets.*
+.DS_Store
+*.plist
+*~
+*.pyc
+*.swp
+*#
+.metadata
+*.log
+__pycache__
+.mypy_cache
+.venv
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+.env
+.flaskenv
