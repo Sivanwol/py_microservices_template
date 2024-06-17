@@ -1,9 +1,10 @@
 """
 The entry point to our Python Flask application.
 """
-from .app import create_app
+from .app import ApplicationMgr
 
-app = create_app()
+ApplicationMgr.init()
+appMgr = ApplicationMgr
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=3000 , debug=True)
+    appMgr.application.run(host='0.0.0.0', port=3000 , debug=True)

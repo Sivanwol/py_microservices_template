@@ -10,7 +10,7 @@ from .models import ConfigModel
 from .schema import ConfigSchema
 from server.app import ApplicationMgr
 
-namespace = Namespace("common", description="Common namespace routes")
+namespace = Namespace("users", description="Users namespace routes")
 socketio = ApplicationMgr.socketio
 descope_client = ApplicationMgr.descope_client
 
@@ -25,13 +25,12 @@ update_config_model =  namespace.model('UpdateConfig', {
     'value' : fields.String,
 })
 
-class ConfgiRoutes(Resource): 
+class NormalUserRoutes(Resource): 
     """
     Routes
     """
     @descope_validate_auth(
         descope_client,
-        roles=[RoleEnum.ADMIN.value],
     )
     @namespace.doc(security="jwt")
     @namespace.expect(add_new_config_model)
@@ -47,7 +46,6 @@ class ConfgiRoutes(Resource):
         config = ConfigModel(**data)
         db.session.add(config)
         db.session.commit()
-        socketio.emit('config_update', None, broadcast=True)
         return make_response(jsonify({"success": "✅ config added"}), 200)
 
     @descope_validate_auth(
@@ -71,7 +69,6 @@ class ConfgiRoutes(Resource):
 
         config.value = data['value']
         db.session.commit()
-        socketio.emit('config_update', None, broadcast=True)
         return make_response(jsonify({"success": "✅ config updated"}), 200)
 
     @descope_validate_auth(
@@ -121,5 +118,4 @@ class ConfgiRoutes(Resource):
 
         db.session.delete(config)
         db.session.commit()
-        socketio.emit('config_update', None, broadcast=True)
         return make_response(jsonify({"success": "✅ config deleted"}), 200)
